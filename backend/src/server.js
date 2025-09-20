@@ -3,7 +3,6 @@ import notesRoutes from "./routes/notesRoutes.js";
 import dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
 
-
 dotenv.config();
 
 const app = express();
