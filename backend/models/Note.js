@@ -10,10 +10,16 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", 
+      required: true,
+    },
   },
-    {
-        timestamps: true,
-    }
-    );
+  {
+    timestamps: true,
+  }
+);
+
 const Note = mongoose.model("Note", noteSchema);
 export default Note;
