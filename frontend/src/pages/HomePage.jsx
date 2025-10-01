@@ -32,11 +32,13 @@ const HomePage = () => {
       }
     };
 
-    const fetchNotes = async () => {
+const fetchNotes = async () => {
   try {
-    const res = await api.get("/api/notes");
+    const res = await api.get("/notes");
+
     if (Array.isArray(res.data)) {
       setNotes(res.data);
+    } else {
       console.warn("Unexpected notes response:", res.data);
       setNotes([]);
     }
@@ -54,6 +56,7 @@ const HomePage = () => {
     setLoading(false);
   }
 };
+
 
 
     fetchUser();
