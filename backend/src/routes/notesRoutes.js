@@ -11,6 +11,7 @@ import Note from '../../models/Note.js';
 const router = express.Router();
 
 router.get("/", authMiddleware, async (req, res) => {
+  console.log("Notes route hit for user:", req.user._id);
   try {
     const notes = await Note.find({ userId: req.user._id });
     res.json(notes);
@@ -18,6 +19,7 @@ router.get("/", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Failed to fetch notes" });
   }
 });
+
 
 router.get("/:id", authMiddleware, getAllNotes);
 router.post("/", authMiddleware, createNote);
