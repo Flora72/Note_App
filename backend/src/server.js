@@ -6,6 +6,8 @@ import path from "path";
 import notesRoutes from "./routes/notesRoutes.js";
 import { connectDB } from "../config/db.js";
 import rateLimiter from "../middleware/rateLimiter.js";
+import authRoutes from './routes/auth.js';
+
 
 dotenv.config();
 
@@ -23,7 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 app.use(express.json()); 
 app.use(rateLimiter);
-
+app.use('/api/auth', authRoutes);
 app.use("/api/notes", notesRoutes);
 
 if (process.env.NODE_ENV === "production") {
@@ -33,6 +35,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
+app.get('/', (req, res) => {
+  res.send('Note App backend is running — clean, secure, and ready.');
+});
 
 connectDB().then(() => {
   app.listen(PORT, () => {

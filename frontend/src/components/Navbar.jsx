@@ -1,22 +1,36 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { PlusIcon } from "lucide-react";
+import toast from "react-hot-toast";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success("You’ve been logged out");
+    navigate("/login");
+  };
+
   return (
     <header className="bg-base-300 border-b border-base-content/10">
-        <div className="mx-auto max-w-6xl p-4">
-            <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold text-primary font-mono tracking-tighter">LumenLog</h1>
-                <div className="flex items-center gap-4">
-                <Link to={"/create"} className="btn btn-primary">
-                <PlusIcon className="size-5"/>
-                <span>New Note</span>
-                </Link>
+      <div className="mx-auto max-w-6xl p-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-primary font-mono tracking-tighter">LumenLog</h1>
 
-                </div>
-            </div>
+          <div className="flex items-center gap-4">
+            <Link to="/create" className="btn btn-primary">
+              <PlusIcon className="size-5" />
+              <span>New Note</span>
+            </Link>
+
+            <button onClick={handleLogout} className="btn btn-outline btn-error">
+              Logout
+            </button>
+          </div>
         </div>
-        </header>
-  )
-}
+      </div>
+    </header>
+  );
+};
 
-export default Navbar
+export default Navbar;
